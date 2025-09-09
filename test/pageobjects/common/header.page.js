@@ -1,18 +1,14 @@
-import Page from "./page.js";
+import LoginPage from "../../pageobjects/auth/login.page.js";
 
-class HeaderPage extends Page {
-    get searchBox() {
-        return $("input[name='q'][placeholder='Search Products...']");
-    }
+describe("Login feature", () => {
+    it("debug login selectors", async () => {
+        await LoginPage.open("/login");
 
-    get btnSearch() {
-        return $("button[type='submit']");
-    }
+        // Kiểm tra locator có tồn tại không
+        console.log("Email exists:", await LoginPage.inputEmail.isExisting());
+        console.log("Password exists:", await LoginPage.inputPassword.isExisting());
+        console.log("Submit exists:", await LoginPage.btnSubmit.isExisting());
 
-    async searchProduct(keyword) {
-        await this.setInput(this.searchBox, keyword);
-        await this.click(this.btnSearch);
-    }
-}
-
-export default new HeaderPage();
+        await browser.pause(5000); // dừng để bạn nhìn browser
+    });
+});

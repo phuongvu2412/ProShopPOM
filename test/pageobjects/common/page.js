@@ -6,23 +6,30 @@ export default class Page {
     }
 
     async setInput(element, value) {
-        await element.waitForDisplayed();
-        await element.setValue(value);
+        const el = await element;
+        await el.waitForDisplayed({ timeout: 10000 });
+        await el.click();
+        await el.clearValue();
+        await el.setValue(value);
+        await browser.pause(300);
     }
 
     async click(element) {
-        await element.waitForClickable();
-        await element.click();
+        const el = await element;
+        await el.waitForClickable({ timeout: 10000 });
+        await el.click();
     }
 
     async getText(element) {
-        await element.waitForDisplayed();
-        return element.getText();
+        const el = await element;
+        await el.waitForDisplayed({ timeout: 10000 });
+        return el.getText();
     }
 
     async isDisplayed(element) {
         try {
-            return await element.isDisplayed();
+            const el = await element;
+            return await el.isDisplayed();
         } catch {
             return false;
         }
