@@ -12,9 +12,10 @@ class PaymentPage extends Page {
         return $("label[for='PayPal']");
     }
 
-    get btnContinue() {
-        return $("button.btn.btn-primary=Continue");
+  get btnContinue() {
+        return $("button=Continue"); 
     }
+
 
         async selectPaypal() {
         await this.radioPaypal.waitForClickable();

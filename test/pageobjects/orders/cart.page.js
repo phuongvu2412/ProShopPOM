@@ -10,7 +10,7 @@ class CartPage extends Page {
     }
 
     get deleteButtons() {
-        return $$("button.btn.btn-light");
+        return $$("button=Remove");
     }
 
     get subtotalText() {
@@ -29,6 +29,10 @@ class CartPage extends Page {
         return $("button.btn-outline-success");
     }
 
+    get emptyCartMessage() {
+        return $("div.alert-info=Your cart is empty");
+    }
+
     async proceedToCheckout() {
         await this.click(this.btnProceedToCheckout);
     }
@@ -40,6 +44,18 @@ class CartPage extends Page {
 
     async getSubtotal() {
         return await this.getText(this.subtotalText);
+    }
+
+    async clearCart() {
+        while ((await this.deleteButtons).length > 0) {
+            const btns = await this.deleteButtons;
+            await btns[0].click();
+            await browser.pause(500); 
+        }
+    }
+
+    async isCartEmpty() {
+        return await this.emptyCartMessage.isDisplayed();
     }
 }
 
