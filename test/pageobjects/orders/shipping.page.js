@@ -18,7 +18,7 @@ class ShippingPage extends Page {
     }
 
     get btnContinue() {
-        return $(".btn-block.btn.btn-primary"); 
+        return $(".btn.btn-primary"); 
     }
 
     async fillShippingForm(address, city, postalCode, country) {
