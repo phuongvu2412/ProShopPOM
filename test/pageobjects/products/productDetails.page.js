@@ -10,14 +10,12 @@ class ProductDetailsPage extends Page {
     get productPrice() {
         return $("div.list-group-item*=Price");
     }
-
     get quantitySelect() {
         return $("select.form-control");
     }
     get btnAddToCart() {
         return $("button.btn-block.btn.btn-primary");
     }
-
     get ratingSelect() {
         return $("#rating.form-control");
     }
@@ -25,18 +23,15 @@ class ProductDetailsPage extends Page {
         return $("#comment.form-control");
     }
     get btnSubmitReview() {
-        return $("form button[type='submit']");
+        return $("button.btn.btn-primary[type='submit']");
     }
-
     async selectQuantity(qty) {
         await this.quantitySelect.waitForDisplayed({ timeout: 5000 });
         await this.quantitySelect.selectByAttribute("value", qty.toString());
     }
-
     async addToCart() {
         await this.click(this.btnAddToCart);
     }
-
     async submitReview(rating, comment) {
         await this.ratingSelect.waitForDisplayed({ timeout: 5000 });
         await this.ratingSelect.selectByAttribute("value", rating.toString());

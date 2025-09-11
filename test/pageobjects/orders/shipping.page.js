@@ -10,24 +10,22 @@ class ShippingPage extends Page {
     }
 
     get inputPostalCode() {
-        return $("#postalCode"); 
+        return $("#postalCode");
     }
 
     get inputCountry() {
-        return $("#country"); 
+        return $("#country");
     }
 
     get btnContinue() {
-        return $(".btn.btn-primary"); 
+        return $(".btn.btn-primary");
     }
-
     async fillShippingForm(address, city, postalCode, country) {
         await this.setInput(this.inputAddress, address);
         await this.setInput(this.inputCity, city);
         await this.setInput(this.inputPostalCode, postalCode);
         await this.setInput(this.inputCountry, country);
     }
-
     async continueToPayment() {
         await this.click(this.btnContinue);
     }

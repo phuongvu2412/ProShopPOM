@@ -2,8 +2,12 @@ import Page from "../common/page.js";
 import HeaderPage from "../common/header.page.js";
 
 class LoginPage extends Page {
-    get inputEmail() { return $("#email"); }
-    get inputPassword() { return $("#password"); }
+    get inputEmail() {
+        return $("#email");
+    }
+    get inputPassword() {
+        return $("#password");
+    }
 
     async login(email, password) {
         await this.setInput(this.inputEmail, email);
@@ -11,11 +15,10 @@ class LoginPage extends Page {
         await this.inputPassword.click();
         await browser.keys("Enter");
 
-        // ✅ chờ login thành công
-        await browser.waitUntil(
-            async () => await HeaderPage.isLoggedIn(),
-            { timeout: 10000, timeoutMsg: "User menu (#username) not visible after login" }
-        );
+        await browser.waitUntil(async () => await HeaderPage.isLoggedIn(), {
+            timeout: 10000,
+            timeoutMsg: "User menu (#username) not visible after login",
+        });
     }
 }
 

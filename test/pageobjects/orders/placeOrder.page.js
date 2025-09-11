@@ -8,14 +8,15 @@ class PlaceOrderPage extends Page {
     get orderItems() {
         return $$(".list-group-item");
     }
-    get btnPlaceOrder() {return $("button=Place Order");}
+    get btnPlaceOrder() {
+        return $("button.btn-block.btn.btn-primary");
+    }
     async getOrderSummary() {
         const items = await this.orderItems.map(
             async (el) => await el.getText()
         );
         return Promise.all(items);
     }
-
     async placeOrder() {
         await this.btnPlaceOrder.waitForClickable();
         await this.btnPlaceOrder.click();
