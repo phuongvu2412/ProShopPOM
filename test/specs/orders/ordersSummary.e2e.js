@@ -5,7 +5,7 @@ import OrdersSummaryPage from "../../pageobjects/orders/ordersSummary.page.js";
 describe("EPIC 3.2: View Order History", () => {
     before(async () => {
         await LoginPage.open("/login");
-        await LoginPage.login("seves2@gmail.com", "123456As");
+        await LoginPage.login("group5@gmail.com", "123456");
 
         await browser.waitUntil(
             async () =>
@@ -52,7 +52,8 @@ describe("EPIC 3.2: View Order History", () => {
     });
 
     it("EP03.2_04 - Verify the order is paid but not delivered", async () => {
-        await ProfilePage.clickFirstDetails();
+        await ProfilePage.waitForOrders(8);
+        await ProfilePage.clickDetailsByIndex(4);
         await OrdersSummaryPage.heading.waitForDisplayed({ timeout: 5000 });
         expect(await OrdersSummaryPage.isPaid()).toBe(true);
         expect(await OrdersSummaryPage.isNotDelivered()).toBe(true);

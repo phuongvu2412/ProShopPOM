@@ -20,9 +20,8 @@ class HeaderPage extends Page {
     get btnSearch() {
         return $("button.btn-outline-success");
     }
-    async searchProduct(keyword) {
-        await this.setInput(this.searchInput, keyword);
-        await this.click(this.btnSearch);
+    get Navbar() {
+        return $("a[href='#']");
     }
     async openCart() {
         await this.cartLink.waitForClickable({ timeout: 5000 });
@@ -47,6 +46,18 @@ class HeaderPage extends Page {
     }
     async isLoggedOut() {
         return this.isDisplayed(this.loginLink);
+    }
+
+    async logout1() {
+        await $("#username").click();
+        await $("=Logout").click();
+        await browser.waitUntil(
+            async () => (await browser.getUrl()).includes("/login"),
+            {
+                timeout: 5000,
+                timeoutMsg: "Expected to be on login page after logout",
+            }
+        );
     }
 }
 

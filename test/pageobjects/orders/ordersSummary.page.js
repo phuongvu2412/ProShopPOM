@@ -4,23 +4,6 @@ class OrdersSummaryPage extends Page {
     get heading() {
         return $("h1*=Order");
     }
-    get heading2() {
-        return $("h2=Order Summary");
-    }
-
-    get itemsRow() {
-        return $("div.list-group-item*=Items");
-    }
-    get shippingRow() {
-        return $("div.list-group-item*=Shipping");
-    }
-    get taxRow() {
-        return $("div.list-group-item*=Tax");
-    }
-    get totalRow() {
-        return $("div.list-group-item*=Total");
-    }
-
     get paidAlert() {
         return $("div.alert-success*=Paid on");
     }
@@ -35,28 +18,8 @@ class OrdersSummaryPage extends Page {
         return $("div.alert-danger*=Not Delivered");
     }
 
-    async getItemsValue() {
-        return (await this.itemsRow.getText()).replace("Items", "").trim();
-    }
-    async getShippingValue() {
-        return (await this.shippingRow.getText())
-            .replace("Shipping", "")
-            .trim();
-    }
-    async getTaxValue() {
-        return (await this.taxRow.getText()).replace("Tax", "").trim();
-    }
-    async getTotalValue() {
-        return (await this.totalRow.getText()).replace("Total", "").trim();
-    }
-
-    async getAllSummary() {
-        return {
-            items: await this.getItemsValue(),
-            shipping: await this.getShippingValue(),
-            tax: await this.getTaxValue(),
-            total: await this.getTotalValue(),
-        };
+    get btnMarkAsDelivered() {
+        return $("button=Mark As Delivered");
     }
 
     async isPaid() {
@@ -86,6 +49,20 @@ class OrdersSummaryPage extends Page {
             return this.deliveredAlert.getText(); // "Delivered on ..."
         } else {
             return this.notDeliveredAlert.getText(); // "Not Delivered"
+        }
+    }
+
+    async hasMarkDeliveredBtn() {
+        return await this.btnMarkAsDelivered.isExisting();
+    }
+
+    async clickMarkAsDelivered() {
+        await this.btnMarkAsDelivered.waitForClickable({ timeout: 5000 });
+        await this.btnMarkAsDelivered.click();
+
+        const confirmYes = await $("button=Yes");
+        if (await confirmYes.isExisting()) {
+            await confirmYes.click();
         }
     }
 }

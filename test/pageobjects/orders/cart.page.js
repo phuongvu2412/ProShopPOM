@@ -28,13 +28,6 @@ class CartPage extends Page {
     async getSubtotal() {
         return await this.getText(this.subtotalText);
     }
-    async clearCart() {
-        while ((await this.deleteButtons).length > 0) {
-            const btns = await this.deleteButtons;
-            await btns[0].click();
-            await browser.pause(500);
-        }
-    }
     async isCartEmpty() {
         if (await this.emptyCartMessage.isDisplayed()) {
             return true;

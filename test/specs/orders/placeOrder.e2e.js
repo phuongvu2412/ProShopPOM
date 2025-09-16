@@ -10,7 +10,7 @@ import HeaderPage from "../../pageobjects/common/header.page.js";
 describe("EPIC 3.1: Place an Order", () => {
     before(async () => {
         await LoginPage.open("/login");
-        await LoginPage.login("seves2@gmail.com", "123456As");
+        await LoginPage.login("group5@gmail.com", "123456");
 
         await browser.waitUntil(
             async () =>
@@ -23,7 +23,7 @@ describe("EPIC 3.1: Place an Order", () => {
 
     beforeEach(async () => {
         await browser.execute(() => {
-            localStorage.clear();
+            localStorage.getItem("userInfo");
             sessionStorage.clear();
         });
         await browser.url("/");
@@ -33,7 +33,7 @@ describe("EPIC 3.1: Place an Order", () => {
         );
         if (!userInfo) {
             await LoginPage.open("/login");
-            await LoginPage.login("seves2@gmail.com", "123456As");
+            await LoginPage.login("group5@gmail.com", "123456");
 
             await browser.waitUntil(
                 async () =>
@@ -79,7 +79,7 @@ describe("EPIC 3.1: Place an Order", () => {
         await HeaderPage.logout();
         expect(await HeaderPage.isLoggedOut()).toBe(true);
 
-        await HeaderPage.login("seves2@gmail.com", "123456As");
+        await HeaderPage.login("group5@gmail.com", "123456");
         await HeaderPage.openCart();
         expect(await CartPage.isCartEmpty()).toBe(true);
     });
@@ -184,7 +184,12 @@ describe("EPIC 3.1: Place an Order", () => {
 
         await CartPage.btnProceedToCheckout.click();
         await ShippingPage.inputAddress.waitForDisplayed({ timeout: 10000 });
-        await ShippingPage.fillShippingForm("addr", "HCM", "007000", "Vietnam");
+        await ShippingPage.fillShippingForm(
+            "address",
+            "HCM",
+            "007000",
+            "Vietnam"
+        );
         await ShippingPage.continueToPayment();
 
         expect(await browser.getUrl()).toContain("/payment");
@@ -196,7 +201,7 @@ describe("EPIC 3.1: Place an Order", () => {
 
         await CartPage.btnProceedToCheckout.click();
         await ShippingPage.inputAddress.waitForDisplayed({ timeout: 10000 });
-        await ShippingPage.fillShippingForm("addr", "HCM", "007000", "");
+        await ShippingPage.fillShippingForm("address", "HCM", "007000", "");
         await ShippingPage.btnContinue.click();
 
         const currentUrl = await browser.getUrl();
@@ -210,7 +215,12 @@ describe("EPIC 3.1: Place an Order", () => {
 
         await CartPage.btnProceedToCheckout.click();
         await ShippingPage.inputAddress.waitForDisplayed({ timeout: 10000 });
-        await ShippingPage.fillShippingForm("addr", "HCM", "007000", "Vietnam");
+        await ShippingPage.fillShippingForm(
+            "address",
+            "HCM",
+            "007000",
+            "Vietnam"
+        );
         await ShippingPage.continueToPayment();
 
         expect(await PaymentPage.heading.isDisplayed()).toBe(true);
@@ -225,12 +235,32 @@ describe("EPIC 3.1: Place an Order", () => {
 
         await CartPage.btnProceedToCheckout.click();
         await ShippingPage.inputAddress.waitForDisplayed({ timeout: 10000 });
-        await ShippingPage.fillShippingForm("addr", "HCM", "007000", "Vietnam");
+        await ShippingPage.fillShippingForm(
+            "address",
+            "HCM",
+            "007000",
+            "Vietnam"
+        );
         await ShippingPage.continueToPayment();
 
         await PaymentPage.selectPaypal();
         await PaymentPage.continue();
 
+        expect(await browser.getUrl()).toContain("/placeorder");
+    });
+    it.only("EP03.1_15 - Verify Payment Method is required (default checked)", async () => {
+        await ProductListPage.addFirstProductToCart(2);
+        await ProductListPage.cartIcon.click();
+        await CartPage.btnProceedToCheckout.click();
+        await ShippingPage.fillShippingForm(
+            "address",
+            "HCM",
+            "007000",
+            "Vietnam"
+        );
+        await ShippingPage.continueToPayment();
+        expect(await PaymentPage.radioPaypal.isSelected()).toBe(true);
+        await PaymentPage.continue();
         expect(await browser.getUrl()).toContain("/placeorder");
     });
 
@@ -243,7 +273,12 @@ describe("EPIC 3.1: Place an Order", () => {
         expect(url).toContain("/shipping");
 
         await ShippingPage.inputAddress.waitForDisplayed({ timeout: 10000 });
-        await ShippingPage.fillShippingForm("addr", "HCM", "007000", "Vietnam");
+        await ShippingPage.fillShippingForm(
+            "address",
+            "HCM",
+            "007000",
+            "Vietnam"
+        );
         await ShippingPage.continueToPayment();
 
         await PaymentPage.selectPaypal();

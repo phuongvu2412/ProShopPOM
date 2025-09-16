@@ -14,7 +14,7 @@ class RegisterPage extends Page {
         return $("#confirmPassword");
     }
     get btnSubmit() {
-        return $('button[type="submit"]');
+        return $('button[type="submit"][class="btn btn-primary"]');
     }
 
     async register(name, email, password, confirmPassword = password) {
