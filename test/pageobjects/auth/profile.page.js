@@ -82,8 +82,8 @@ class ProfilePage extends Page {
     }
 
     async resetProfileToDefault() {
-        const originalName = "John Doe";
-        const originalEmail = "john@email.com";
+        const originalName = "Updated John";
+        const originalEmail = "john.updated@email.com";
 
         await this.open("/profile");
         await this.inputEmail.waitForDisplayed();
@@ -134,7 +134,7 @@ class ProfilePage extends Page {
         }
 
         await this.logout();
-        await LoginPage.login("john@email.com", originalPassword);
+        await LoginPage.login("john.updated@email.com", originalPassword);
         await expect(LoginPage.userInfo).toBeDisplayed();
     }
 
@@ -189,6 +189,21 @@ class ProfilePage extends Page {
         await el.clearValue();
         await el.setValue(value);
     }
+async clearAndType(inputEl, value) {
+    const el = await inputEl;
+    await el.waitForDisplayed({ timeout: 5000 });
+    await el.click();
+
+    // Select all (Ctrl+A) rồi xoá
+    await browser.keys(["Control", "a"]);
+    await browser.keys("Backspace");
+
+    // Gõ giá trị mới
+    await el.setValue(value);
 }
+
+
+}
+
 
 export default new ProfilePage();

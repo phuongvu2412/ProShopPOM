@@ -225,7 +225,8 @@ describe("EPIC 3.1: Place an Order", () => {
 
         expect(await PaymentPage.heading.isDisplayed()).toBe(true);
 
-        await PaymentPage.selectPaypal();
+        await PaymentPage.radioPaypal.waitForClickable({ timeout: 5000 });
+        await PaymentPage.radioPaypal.click();
         expect(await PaymentPage.radioPaypal.isSelected()).toBe(true);
     });
 
@@ -242,13 +243,14 @@ describe("EPIC 3.1: Place an Order", () => {
             "Vietnam"
         );
         await ShippingPage.continueToPayment();
+        await PaymentPage.radioPaypal.waitForClickable({ timeout: 5000 });
+        await PaymentPage.radioPaypal.click();
 
-        await PaymentPage.selectPaypal();
         await PaymentPage.continue();
 
         expect(await browser.getUrl()).toContain("/placeorder");
     });
-    it.only("EP03.1_15 - Verify Payment Method is required (default checked)", async () => {
+    it("EP03.1_15 - Verify Payment Method is required (default checked)", async () => {
         await ProductListPage.addFirstProductToCart(2);
         await ProductListPage.cartIcon.click();
         await CartPage.btnProceedToCheckout.click();
@@ -264,7 +266,7 @@ describe("EPIC 3.1: Place an Order", () => {
         expect(await browser.getUrl()).toContain("/placeorder");
     });
 
-    it("EP03.1_16 - Verify Place Order successfully", async () => {
+    it.only("EP03.1_16 - Verify Place Order successfully", async () => {
         await ProductListPage.addFirstProductToCart(2);
         await ProductListPage.cartIcon.click();
 
@@ -281,7 +283,9 @@ describe("EPIC 3.1: Place an Order", () => {
         );
         await ShippingPage.continueToPayment();
 
-        await PaymentPage.selectPaypal();
+        await PaymentPage.radioPaypal.waitForClickable({ timeout: 5000 });
+        await PaymentPage.radioPaypal.click();
+
         await PaymentPage.continue();
 
         await PlaceOrderPage.placeOrder();

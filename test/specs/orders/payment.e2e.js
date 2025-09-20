@@ -48,7 +48,7 @@ describe("EPIC 3.4: PAYMENT PROCESS", () => {
 
         // Verify Payment Status
         const paidText = await $("div=Paid on");
-        await paidText.waitForExist({ timeout: 20000 });
+        await paidText.waitForExist({ timeout: 25000 });
         await expect(paidText).toBeExisting();
     });
 

@@ -3,11 +3,9 @@ import OrdersSummaryPage from "../../pageobjects/orders/ordersSummary.page.js";
 
 describe("EPIC 3.5 (User): Mark as Delivered", () => {
     before(async () => {
-        // Login với tài khoản user
         await LoginPage.open("/login");
         await LoginPage.login("group5@gmail.com", "123456");
 
-        // Chờ lưu userInfo trong localStorage
         await browser.waitUntil(
             async () =>
                 (await browser.execute(() =>
@@ -18,7 +16,7 @@ describe("EPIC 3.5 (User): Mark as Delivered", () => {
     });
 
     it("EP03.5_01 - User xem order Paid + Delivered → không có nút Mark As Delivered", async () => {
-        await browser.url("/order/68b023958d07f310e19c4914");
+        await browser.url("/order/68c95cf54084cdc891d43b36");
 
         await OrdersSummaryPage.heading.waitForDisplayed({ timeout: 5000 });
 
@@ -28,11 +26,11 @@ describe("EPIC 3.5 (User): Mark as Delivered", () => {
 
         expect(paid).toBe(true);
         expect(delivered).toBe(true);
-        expect(hasBtn).toBe(false); 
+        expect(hasBtn).toBe(false);
     });
 
     it("EP03.5_02 - User xem order Not Paid + Not Delivered → không có nút Mark As Delivered", async () => {
-        await browser.url("/order/68b024ca8d07f310e19c495f");
+        await browser.url("/order/68c95d5a4084cdc891d43b5f");
 
         await OrdersSummaryPage.heading.waitForDisplayed({ timeout: 5000 });
 

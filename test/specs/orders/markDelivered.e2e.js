@@ -3,11 +3,9 @@ import OrdersSummaryPage from "../../pageobjects/orders/ordersSummary.page.js";
 
 describe("EPIC 3.5: Mark as Delivered", () => {
     before(async () => {
-        // Login với tài khoản admin
         await LoginPage.open("/login");
         await LoginPage.login("admin@email.com", "123456");
 
-        // Chờ lưu userInfo trong localStorage
         await browser.waitUntil(
             async () =>
                 (await browser.execute(() =>
@@ -46,7 +44,7 @@ describe("EPIC 3.5: Mark as Delivered", () => {
     });
 
     it("EP03.5_03 - Paid + Not Delivered → admin có thể Mark As Delivered", async () => {
-        await browser.url("/order/68c95d174084cdc891d43b44");
+        await browser.url("/order/68c958b34084cdc891d4370f");
 
         await OrdersSummaryPage.heading.waitForDisplayed({ timeout: 5000 });
 
@@ -73,7 +71,7 @@ describe("EPIC 3.5: Mark as Delivered", () => {
     });
 
     it("EP03.5_04 - Sau khi delivered → admin không thể thay đổi trạng thái nữa", async () => {
-        await browser.url("/order/68c95cf54084cdc891d43b36");
+        await browser.url("/order/68b023368d07f310e19c48f7");
 
         await OrdersSummaryPage.heading.waitForDisplayed({ timeout: 5000 });
 

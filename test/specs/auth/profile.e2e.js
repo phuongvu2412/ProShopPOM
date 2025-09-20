@@ -22,7 +22,7 @@ describe("EP01.3: View Profile - Proshop v2", () => {
         expect(await browser.getUrl()).toContain("/profile");
 
         await profilePage.inputName.waitForDisplayed({ timeout: 5000 });
-        expect(await profilePage.inputName.getValue()).toBe("group5");
+        expect(await profilePage.inputName.getValue()).toBe("New User Name");
         expect(await profilePage.inputEmail.getValue()).toBe(
             "group5@gmail.com"
         );

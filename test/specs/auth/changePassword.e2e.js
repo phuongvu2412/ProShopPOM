@@ -1,9 +1,10 @@
 import LoginPage from "../../pageobjects/auth/login.page.js";
+import profilePage from "../../pageobjects/auth/profile.page.js";
 import ProfilePage from "../../pageobjects/auth/profile.page.js";
 import HeaderPage from "../../pageobjects/common/header.page.js";
 
 describe("EPIC 1.5: Change Password", () => {
-    const originalName = "group5";
+    const originalName = "New User Name";
     const originalEmail = "group5@gmail.com";
     const originalPassword = "123456";
 

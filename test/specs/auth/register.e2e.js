@@ -10,7 +10,7 @@ describe('EP01.1: Account Registration - Proshop v2', () => {
     })
 
     it('EP01.1_1: Valid Registration', async () => {
-        await RegisterPage.register('myname', 'mail0049919@email.com', 'Hgri@120', 'Hgri@120'); //Remember change email
+        await RegisterPage.register('myname', 'maail00@email.com', 'Hgri@120', 'Hgri@120'); //Remember change email
 
         await browser.waitUntil(async () => await HeaderPage.isLoggedIn(), {
                         timeout: 10000,
